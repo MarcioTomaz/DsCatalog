@@ -21,7 +21,7 @@ public class CategoryResource {
     private CategoryService categoryService;
 
     @GetMapping
-    public ResponseEntity<List<CategoryDTO>>findAll(){
+    public ResponseEntity<List<CategoryDTO>> findAll() {
 
         List<CategoryDTO> list = categoryService.findALl();
 
@@ -29,7 +29,7 @@ public class CategoryResource {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity <CategoryDTO> findById(@PathVariable Long id){
+    public ResponseEntity<CategoryDTO> findById(@PathVariable Long id) {
 
         CategoryDTO dto = categoryService.findById(id);
 
@@ -37,7 +37,7 @@ public class CategoryResource {
     }
 
     @PostMapping
-    public ResponseEntity<CategoryDTO> insert(@RequestBody CategoryDTO dto){
+    public ResponseEntity<CategoryDTO> insert(@RequestBody CategoryDTO dto) {
 
         dto = categoryService.insert(dto);
 
@@ -46,4 +46,13 @@ public class CategoryResource {
 
         return ResponseEntity.created(uri).body(dto);
     }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<CategoryDTO> update(@PathVariable Long id, @RequestBody CategoryDTO dto) {
+
+        dto = categoryService.update(id, dto);
+
+        return ResponseEntity.ok().body(dto);
+    }
+
 }
