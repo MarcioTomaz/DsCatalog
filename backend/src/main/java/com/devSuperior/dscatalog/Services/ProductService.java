@@ -26,6 +26,9 @@ public class ProductService {
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
     public Page<ProductDTO> findAllPaged(PageRequest pageRequest) {
 
         Page<Product> result = productRepository.findAll(pageRequest);
@@ -55,7 +58,7 @@ public class ProductService {
     public ProductDTO insert(ProductDTO dto) {
 
         Product entity = new Product();
-        //entity.setName(dto.getName());
+        copyDtoToEntity(dto, entity);
 
         entity = productRepository.save(entity);
 
@@ -68,7 +71,7 @@ public class ProductService {
         try {
 
             Product entity = productRepository.getOne(id);
-           // entity.setName(dto.getName());
+            copyDtoToEntity(dto, entity);
 
             entity = productRepository.save(entity);
 
@@ -92,6 +95,22 @@ public class ProductService {
         } catch (DataIntegrityViolationException e) {
 
             throw new DatabaseException("Integrity violetion");
+        }
+    }
+
+    private void copyDtoToEntity(ProductDTO dto, Product entity) {
+
+        entity.setName(dto.getName());
+        entity.setDescription(dto.getDescription());
+        entity.setDate(dto.getDate());
+        entity.setImgUrl(dto.getImgUrl());
+        entity.setPrice(dto.getPrice());
+
+        entity.getCategories().clear();
+
+        for (CategoryDTO catDto : dto.getCategories()){
+            Category category = categoryRepository.getOne(catDto.getId());
+            entity.getCategories().add(category);
         }
     }
 
