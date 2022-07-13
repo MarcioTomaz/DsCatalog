@@ -9,10 +9,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-<<<<<<< HEAD
+
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-=======
->>>>>>> 2ad20421da2332b8bc9053df0af8a57aee89b62c
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -26,16 +24,11 @@ public class CategoryResource {
     @Autowired
     private CategoryService categoryService;
 
-    @GetMapping
-<<<<<<< HEAD
-    public ResponseEntity<List<CategoryDTO>> findAll() {
-=======
     public ResponseEntity<Page<CategoryDTO>>findAll(
             @RequestParam(value = "page", defaultValue = "0") Integer page,
             @RequestParam(value = "linesPerPage", defaultValue = "12") Integer linesPerPage,
             @RequestParam(value = "direction", defaultValue = "ASC") String direction,
             @RequestParam(value = "orderBy", defaultValue = "name") String orderBy){
->>>>>>> 2ad20421da2332b8bc9053df0af8a57aee89b62c
 
         PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy );
 
