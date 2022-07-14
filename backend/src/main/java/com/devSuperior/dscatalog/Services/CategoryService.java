@@ -13,6 +13,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -88,9 +89,9 @@ public class CategoryService {
         }
     }
 
-    public Page<CategoryDTO> findAllPaged(PageRequest pageRequest) {
+    public Page<CategoryDTO> findAllPaged(Pageable pageable) {
 
-        Page<Category> result = categoryRepository.findAll(pageRequest);
+        Page<Category> result = categoryRepository.findAll(pageable);
 
         return result.map(x -> new CategoryDTO(x));
 
