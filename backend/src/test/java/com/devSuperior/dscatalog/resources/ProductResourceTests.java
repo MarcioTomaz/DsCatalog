@@ -45,7 +45,6 @@ public class ProductResourceTests {
 
     private long existingId;
     private long nonExistingId;
-
     private long dependentId;
 
     @BeforeEach
