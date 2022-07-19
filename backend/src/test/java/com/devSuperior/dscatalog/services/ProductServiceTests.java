@@ -30,13 +30,13 @@ import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
-@ExtendWith(SpringExtension.class)
+@ExtendWith(SpringExtension.class) // Não carrega o contexto, mas permite usar os recursos do spring JUnit ( teste de unidade: service/component )
 public class ProductServiceTests {
 
     @InjectMocks
     private ProductService service;
 
-    @Mock
+    @Mock //Usar quando a classe de teste não carrega o contexto da aplicação. É mais rápido e enxuto.     @ExtendWith
     private ProductRepository repository;
 
     @Mock

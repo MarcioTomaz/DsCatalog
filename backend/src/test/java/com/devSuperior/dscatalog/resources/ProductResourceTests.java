@@ -29,12 +29,12 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(ProductResource.class)
+@WebMvcTest(ProductResource.class) // Carrega o contexto, porém somente da camada web ( teste de unidade: controlador )
 public class ProductResourceTests {
 
     @Autowired
     private MockMvc mockMvc;
-    @MockBean
+    @MockBean //Usar quando a classe de teste carrega o contexto da aplicação e precisa mockar algum bean do sistema. @WebMvcTest @SpringBootTest
     private ProductService service;
 
     @Autowired

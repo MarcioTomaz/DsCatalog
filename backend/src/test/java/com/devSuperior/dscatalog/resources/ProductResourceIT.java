@@ -18,8 +18,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
-@AutoConfigureMockMvc
+@SpringBootTest // usado quando é necessário carregar o contexto da aplicação ( teste de integração )
+@AutoConfigureMockMvc // trata as requisições sem subir o servidor ( teste de integração e web )
 @Transactional
 public class ProductResourceIT {
 

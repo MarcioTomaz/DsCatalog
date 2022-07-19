@@ -11,7 +11,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 
 import java.util.Optional;
 
-@DataJpaTest
+@DataJpaTest //Carrega somente os componentes relacionados ao Spring Data JPA. Cada teste é transacional e dá rollback ao final. ( Teste de unidade: repository )
 public class ProductRepositoryTests {
 
     @Autowired
