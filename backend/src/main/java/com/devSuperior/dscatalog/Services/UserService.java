@@ -3,6 +3,7 @@ package com.devSuperior.dscatalog.Services;
 import com.devSuperior.dscatalog.DTO.RoleDTO;
 import com.devSuperior.dscatalog.DTO.UserDTO;
 import com.devSuperior.dscatalog.DTO.UserInsertDTO;
+import com.devSuperior.dscatalog.DTO.UserUpdateDTO;
 import com.devSuperior.dscatalog.Services.exceptions.DatabaseException;
 import com.devSuperior.dscatalog.Services.exceptions.ResourceNotFoundException;
 import com.devSuperior.dscatalog.entities.Role;
@@ -70,7 +71,7 @@ public class UserService {
     }
 
     @Transactional
-    public UserDTO update(Long id, UserDTO dto) {
+    public UserDTO update(Long id, UserUpdateDTO dto) {
 
         try {
 
