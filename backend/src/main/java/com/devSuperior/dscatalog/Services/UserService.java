@@ -10,11 +10,16 @@ import com.devSuperior.dscatalog.entities.Role;
 import com.devSuperior.dscatalog.entities.User;
 import com.devSuperior.dscatalog.repositories.RoleRepository;
 import com.devSuperior.dscatalog.repositories.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +30,10 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
+
+    private static Logger logger = LoggerFactory.getLogger(UserService.class);
+
     @Autowired
     private UserRepository userRepository;
 
@@ -116,4 +124,17 @@ public class UserService {
         }
     }
 
+    @Override
+    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+
+        User user = userRepository.findByEmail(userName);
+
+        if( user == null){
+            logger.error("user not found: " + userName);
+            throw new UsernameNotFoundException("Email not found");
+        }
+
+        logger.info("User found: " + userName);
+        return user;
+    }
 }
