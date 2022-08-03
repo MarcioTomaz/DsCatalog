@@ -1,6 +1,8 @@
 
-package com.devSuperior.dscatalog.Services.exceptions;
+package com.devSuperior.dscatalog.resources.exceptions;
 
+import com.devSuperior.dscatalog.Services.exceptions.DatabaseException;
+import com.devSuperior.dscatalog.Services.exceptions.ResourceNotFoundException;
 import com.devSuperior.dscatalog.resources.exceptions.StandardError;
 import com.devSuperior.dscatalog.resources.exceptions.ValidationError;
 import org.springframework.http.HttpStatus;
