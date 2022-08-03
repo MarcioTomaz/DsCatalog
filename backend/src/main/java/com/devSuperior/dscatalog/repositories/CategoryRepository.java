@@ -22,4 +22,5 @@ public interface CategoryRepository extends JpaRepository<Category,Long> {
 
     @Query("SELECT obj FROM Product obj JOIN FETCH obj.categories WHERE obj IN :products")
     List<Product> findProductsWithCategories(List<Product> products);
+    //Fetch ira buscar o produto junto com os obj das categorias e ele n funciona com page so funciona com list
 }

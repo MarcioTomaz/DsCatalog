@@ -30,6 +30,8 @@ import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
+import static org.mockito.ArgumentMatchers.any;
+
 @ExtendWith(SpringExtension.class) // Não carrega o contexto, mas permite usar os recursos do spring JUnit ( teste de unidade: service/component )
 public class ProductServiceTests {
 
@@ -61,11 +63,13 @@ public class ProductServiceTests {
         page = new PageImpl<>(List.of(product));
         category = Factory.createCategory();
 
-        Mockito.when( repository.findAll((Pageable) ArgumentMatchers.any())).thenReturn(page);
-        Mockito.when( repository.save(ArgumentMatchers.any())).thenReturn(product);
+        Mockito.when( repository.findAll((Pageable) any())).thenReturn(page);
+        Mockito.when( repository.save(any())).thenReturn(product);
 
         Mockito.when( repository.findById(existingId)).thenReturn(Optional.of(product));
         Mockito.when( repository.findById(nonExistingId)).thenReturn(Optional.empty());
+
+        Mockito.when( categoryRepository.find(any(), any(), any())).thenReturn(page);
 
         Mockito.when( repository.getOne(existingId)).thenReturn(product);
         Mockito.when( repository.getOne(nonExistingId)).thenThrow(EntityNotFoundException.class);
@@ -109,10 +113,9 @@ public class ProductServiceTests {
 
         Pageable pageable = PageRequest.of(0,10);
 
-        Page<ProductDTO> result = service.findAllPaged(pageable);
+        Page<ProductDTO> result = service.findAllPaged(0L, "",pageable);
 
         Assertions.assertNotNull(result);
-        Mockito.verify(repository, Mockito.times(1)).findAll(pageable);
     }
 
     @Test
